@@ -1,0 +1,21 @@
+.header {
+    background-color: #2b0a3d;
+    padding: 15px;
+    color: white;
+}
+
+.float-left {
+    float: left;
+}
+
+.float-right {
+    float: right;
+}
+
+.margin {
+    margin: 2%;
+}
+
+.cursor {
+    cursor: pointer;
+}

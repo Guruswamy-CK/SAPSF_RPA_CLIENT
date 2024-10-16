@@ -1,0 +1,16 @@
+<form class="modal-content animate" (ngSubmit)="login()">
+    <div class="imgcontainer">
+        <img src="assets/images/img_avatar.jpg" alt="Avatar" class="avatar">
+    </div>
+    <div class="container">
+        <label for="username"><b>Username</b></label>
+        <input type="text" placeholder="Enter Username" name="username" [(ngModel)]="username" required>
+
+        <label for="password"><b>Password</b></label>
+        <input type="password" placeholder="Enter Password" name="password" [(ngModel)]="password" required>
+        <button type="submit"><b>Login</b></button>
+
+        <span class="new-user"><a [routerLink]="['/registration']">New User?</a></span><br>
+        <span class="psw"><a [routerLink]="['/forgot-password']">Forgot Password?</a></span><br>
+    </div>
+</form>

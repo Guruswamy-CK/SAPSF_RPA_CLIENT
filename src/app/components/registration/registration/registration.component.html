@@ -1,0 +1,19 @@
+<form  class="modal-content animate" (ngSubmit)="register()">
+    <h2>Register Form</h2> <span style="color: red;">{{errorMessage}}</span>
+    <div class="input-container">
+      <i class="fa fa-user icon"></i>
+      <input class="input-field" type="text" placeholder="Username must contain minimum 4 characters" name="usrnm" [(ngModel)]="userName">
+    </div>
+  
+    <div class="input-container">
+      <i class="fa fa-envelope icon"></i>
+      <input class="input-field" type="text" placeholder="Capgemini email id only" name="email" [(ngModel)]="emailId">
+    </div>
+    
+    <div class="input-container">
+      <i class="fa fa-key icon"></i>
+      <input class="input-field" type="text" placeholder="Password must contain minimum 8 characters" name="psw" [(ngModel)]="password">
+    </div>
+  
+    <button type="submit" class="btn"><b>{{registerButtonValue}}</b></button>
+  </form>

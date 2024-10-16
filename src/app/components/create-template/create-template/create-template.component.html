@@ -1,0 +1,109 @@
+<div class="tab-group-content animate">
+    <mat-tab-group [selectedIndex]="0">
+        <mat-tab>
+            <ng-template mat-tab-label>
+                <b class="tab-label">Workbook&nbsp;</b>
+                <img src="assets/images/double-arrow.png" style="width: 25px;">
+                <b class="tab-label">&nbsp;XML</b>
+            </ng-template>
+            <form class="tab-content animate">
+                <h3 style="color: #2b0a3d;"><b>Generate SAP SF Data model (XML) from Excel Workbook or vis-a-vis.</b>
+                </h3>
+                <div class="container">
+                    <label><b>Conversion Type<span class="color-red"> *</span> : </b></label>
+                    <input type="radio" value="exceltoxml" name="convertDirection" [(ngModel)]="directionSelected"
+                        (click)="onConversionTypeChange('exceltoxml')">
+                    Workbook to XML
+                    <input type="radio" value="xmltoexcel" name="convertDirection" [(ngModel)]="directionSelected"
+                        (click)="onConversionTypeChange('xmltoexcel')"> XML
+                    to Workbook<br><br>
+                    <label><b>Module<span class="color-red"> *</span> : </b></label>
+                    <select name="module" id="moduleId" [(ngModel)]="moduleSelected" (change)="onModuleChange()">
+                        <option selected="selected" value=""></option>
+                        <option value="recruiting">Recruiting (REC)</option>
+                        <option value="employeeCentral">Employee Central (EC)</option>
+                        <option value="pmandgm">Performance and Goal Management (PM, GM)</option>
+                        <option value="spcdp">Succession and Career Development Planning (SPCDP)</option>
+                    </select> <br><br>
+                    <label><b>Data Model<span class="color-red"> *</span> : </b></label>
+                    <select name="dateModelR" *ngIf="moduleSelected == 'recruiting'" id="dateModelIdR"
+                        [(ngModel)]="modelSelected" (change)="onModelChange()">
+                        <option selected="selected" value=""></option>
+                        <option value="jobRequisitionTemplate">Job Requisition Template</option>
+                        <option value="applicationTemplate">Application Template</option>
+                        <option value="candidateProfileTemplate">Candidate Profile Template</option>
+                        <option value="offerApprovalTemplate">Offer Approval Template</option>
+                    </select>
+                    <select name="dateModelE" *ngIf="moduleSelected == 'employeeCentral'" id="dateModelIdE"
+                        [(ngModel)]="modelSelected" (change)="onModelChange()">
+                        <option selected="selected" value=""></option>
+                        <option value="corporateDataModelTemplate">Corporate Data Model Template</option>
+                        <option value=""></option>
+                        <option value=""></option>
+                        <option value=""></option>
+                    </select> <br><br>
+                    <label><b>Please choose a file to convert<span class="color-red"> *</span> : </b></label>
+                    <input #fileUploader type="file" name="file" value="Browse File" (change)="onChange($event)"
+                        accept="{{fileTypeAllowed}}" /><br><br>
+
+                    <button class="float-right" type="submit"
+                        (click)="convertFile()"><b>{{convertButtonValue}}</b></button>
+
+                    <div *ngIf="fileName">
+                        <b style="color: orange;">Download the covereted file : </b><button type="submit"
+                            (click)="downloadFile(fileName)">{{fileName}}</button>
+                    </div><br *ngIf="!fileName"><br *ngIf="!fileName">
+
+                    <div *ngIf="errorMessage">
+                        <b style="color: red;">{{errorMessage}}</b>
+                    </div>
+                    <div *ngIf="errorMessageDownload">
+                        <b style="color: red;">{{errorMessageDownload}}</b>
+                    </div>
+                </div>
+            </form>
+        </mat-tab>
+        <mat-tab>
+            <ng-template mat-tab-label>
+                <b class="tab-label">RBP Workbook</b>
+            </ng-template>
+            <form class="tab-content animate">
+                <div class="container">
+                    <label><b>Please choose a file to login<span class="color-red"> *</span> : </b></label>
+                    <input #fileUploader type="file" name="fileWbpLogin" value="Browse File"
+                        (change)="onChangeWbpLogin($event)" accept=".xlsx" /><br><br>
+                    <button class="float-right" type="submit"
+                        (click)="generateWbpFile()"><b>{{generateWbpButtonValue}}</b></button>
+                    <div *ngIf="fileNameWbpGenerate">
+                        <b style="color: orange;">Download the generated file : </b><button type="submit"
+                            (click)="downloadFile(fileNameWbpGenerate)">{{fileNameWbpGenerate}}</button>
+                    </div><br *ngIf="!fileNameWbpGenerate"><br *ngIf="!fileNameWbpGenerate">
+                    <div *ngIf="errorMessageWbpLogin">
+                        <b style="color: red;">{{errorMessageWbpLogin}}</b>
+                    </div>
+                </div>
+            </form>
+        </mat-tab>
+        <mat-tab>
+            <ng-template mat-tab-label>
+                <b class="tab-label">Job Create Workbook</b>
+            </ng-template>
+            <form class="tab-content animate">
+                <div class="container">
+                    <label><b>Please choose a file to login<span class="color-red"> *</span> : </b></label>
+                    <input #fileUploader type="file" name="fileJobLogin" value="Browse File"
+                        (change)="onChangeJobLogin($event)" accept=".xlsx" /><br><br>
+                    <button class="float-right" type="submit"
+                        (click)="generateJobFile()"><b>{{generateJobButtonValue}}</b></button>
+                    <div *ngIf="fileNameJobGenerate">
+                        <b style="color: orange;">Download the generated file : </b><button type="submit"
+                            (click)="downloadFile(fileNameJobGenerate)">{{fileNameJobGenerate}}</button>
+                    </div><br *ngIf="!fileNameJobGenerate"><br *ngIf="!fileNameJobGenerate">
+                    <div *ngIf="errorMessageJobLogin">
+                        <b style="color: red;">{{errorMessageJobLogin}}</b>
+                    </div>
+                </div>
+            </form>
+        </mat-tab>
+    </mat-tab-group>
+</div>
