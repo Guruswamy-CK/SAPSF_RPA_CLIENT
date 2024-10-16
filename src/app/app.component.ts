@@ -10,6 +10,7 @@ import { CommonStorageService } from './services/common-storage/common-storage.s
 })
 
 export class AppComponent implements OnInit {
+	
 	title: string = 'sap-sf-rpa-client';
 
 	constructor(@Inject(DOCUMENT) private document: Document, private router: Router, private commonStorageService: CommonStorageService) {
