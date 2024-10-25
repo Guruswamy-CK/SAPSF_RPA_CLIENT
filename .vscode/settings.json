@@ -1,0 +1,4 @@
+{
+    "appService.defaultWebAppToDeploy": "/subscriptions/b408155f-0bce-4f07-94d6-d1dbca028a79/resourceGroups/sapsf-rpa/providers/Microsoft.Web/sites/sapsf-rpa-client",
+    "appService.deploySubpath": "dist"
+}
