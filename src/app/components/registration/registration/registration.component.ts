@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserInterface } from 'src/app/models/user-interface';
+import { CommonStorageService } from 'src/app/services/common-storage/common-storage.service';
 import { UserService } from 'src/app/services/user/user.service';
 
 @Component({
@@ -17,7 +18,7 @@ export class RegistrationComponent implements OnInit {
   errorMessageDownload: string = "";
   registerButtonValue: string = "Register";
 
-  constructor(private userService: UserService, private router: Router) {
+  constructor(private userService: UserService, private router: Router, private commonService: CommonStorageService) {
 
   }
 
@@ -26,17 +27,23 @@ export class RegistrationComponent implements OnInit {
   register(): void {
 
     if (!this.userName) {
-      alert("Please fill the username.");
+      //alert("Please fill the username.");
+      this.commonService.openSnackBarValidation("Please fill the username.");
     } else if (this.userName.length < 4) {
-      alert("Username must contain minimum 4 characters.");
+      //alert("Username must contain minimum 4 characters.");
+      this.commonService.openSnackBarValidation("Username must contain minimum 4 characters.");
     } else if (!this.emailId) {
-      alert("Please fill the email id.");
+      //alert("Please fill the email id.");
+      this.commonService.openSnackBarValidation("Please fill the email id.");
     } else if ((this.emailId.length < 17) || ("@capgemini.com" !== this.emailId.substring(this.emailId.length - 14, this.emailId.length))) {
-      alert("The email id must be Capgemini email id only.");
+      //alert("The email id must be Capgemini email id only.");
+      this.commonService.openSnackBarValidation("The email id must be Capgemini email id only.");
     } else if (!this.password) {
-      alert("Please fill the password.");
+      //alert("Please fill the password.");
+      this.commonService.openSnackBarValidation("Please fill the password.");
     } else if (this.password.length < 8) {
-      alert("Password must contain minimum 8 characters.");
+      //alert("Password must contain minimum 8 characters.");
+      this.commonService.openSnackBarValidation("Password must contain minimum 8 characters.");
     }
     else {
       this.user = {
@@ -55,7 +62,8 @@ export class RegistrationComponent implements OnInit {
         });
       } catch (err) {
         this.registerButtonValue = "Register";
-        this.errorMessage = 'Failed to register the user. Please retry.';
+        //this.errorMessage = 'Failed to register the user. Please retry.';
+        this.commonService.openSnackBarFailure("Failed to register the user. Please retry.");
       }
     }
   }

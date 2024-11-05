@@ -1,7 +1,7 @@
-import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from  '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -16,29 +16,34 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatTabsModule } from '@angular/material/tabs';
 import { FileConverterService } from './services/file-converter/file-converter.service';
 import { CommonStorageService } from './services/common-storage/common-storage.service';
-import { UserService } from './services/user/user.service';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { GlobalHttpInterceptorService } from './services/global-http-interceptor/global-http-interceptor.service';
 
 @NgModule({
-	declarations: [
-		AppComponent,
-		FooterComponent,
-		HeaderComponent,
-		LoginComponent,
-		CreateTemplateComponent,
-		ForgotPasswordComponent,
-		RegistrationComponent,
-		PageNotFoundComponent
-	],
-	imports: [
-		BrowserModule,
-		AppRoutingModule,
-		FormsModule,
-		BrowserAnimationsModule,
-		MatTabsModule,
-		HttpClientModule
-	],
-	providers: [FileConverterService, CommonStorageService, UserService],
-	bootstrap: [AppComponent],
-	schemas: [CUSTOM_ELEMENTS_SCHEMA]
+  declarations: [
+    AppComponent,
+    FooterComponent,
+    HeaderComponent,
+    LoginComponent,
+    CreateTemplateComponent,
+    ForgotPasswordComponent,
+    RegistrationComponent,
+    PageNotFoundComponent
+  ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    FormsModule,
+    BrowserAnimationsModule,
+    MatTabsModule,
+    HttpClientModule,
+    MatSnackBarModule
+  ],
+  providers: [{
+    provide: HTTP_INTERCEPTORS,
+    useClass: GlobalHttpInterceptorService,
+    multi: true,
+  },FileConverterService, CommonStorageService],
+  bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -3,6 +3,7 @@ import { FileConverterService } from 'src/app/services/file-converter/file-conve
 import { FileConverterInterface } from 'src/app/models/file-converter-interface';
 import { Router } from '@angular/router';
 import { UserService } from 'src/app/services/user/user.service';
+import { CommonStorageService } from 'src/app/services/common-storage/common-storage.service';
 
 @Component({
   selector: 'app-create-template',
@@ -31,7 +32,7 @@ export class CreateTemplateComponent implements OnInit {
 
   @ViewChild('fileUploader') fileUploader!: ElementRef;
 
-  constructor(private fileConverterService: FileConverterService, private router: Router, private userService: UserService) { }
+  constructor(private fileConverterService: FileConverterService, private router: Router, private userService: UserService, private commonService: CommonStorageService) { }
 
   ngOnInit(): void {
     if (!this.userService.isUserActive) {
@@ -98,7 +99,7 @@ export class CreateTemplateComponent implements OnInit {
 
   convertFile(): void {
     if (!this.moduleSelected || !this.modelSelected || !this.directionSelected || !this.file) {
-      alert("Please fill the mandatory fields.");
+      this.commonService.openSnackBarValidation("Please fill the mandatory fields.");
     } else {
       this.reset();
       this.fileConverter = {
@@ -114,19 +115,22 @@ export class CreateTemplateComponent implements OnInit {
           if (response.fileName) {
             this.fileName = response.fileName;
           } else {
-            this.errorMessage = 'Failed to convert the file. Please check your input file (or) retry.';
+            this.commonService.openSnackBarFailure('Failed to convert the file. Please check your input file (or) retry.');
+            //this.errorMessage = 'Failed to convert the file. Please check your input file (or) retry.';
           }
         });
       } catch (err) {
         this.convertButtonValue = "Convert";
-        this.errorMessage = 'Failed to convert the file. Please check your input file (or) retry.';
+        this.commonService.openSnackBarFailure('Failed to convert the file. Please check your input file (or) retry.');
+        //this.errorMessage = 'Failed to convert the file. Please check your input file (or) retry.';
       }
     }
   }
 
   generateWbpFile(): void {
     if (!this.fileWbpLogin) {
-      alert("Please choose a file to login.");
+      this.commonService.openSnackBarValidation("Please choose a file to login.");
+      //alert("Please choose a file to login.");
     } else {
       this.reset();
       try {
@@ -136,19 +140,22 @@ export class CreateTemplateComponent implements OnInit {
           if (response.fileName) {
             this.fileNameWbpGenerate = response.fileName;
           } else {
-            this.errorMessageWbpLogin = 'Failed to generate the file. Please check your input file (or) retry.';
+            this.commonService.openSnackBarFailure('Failed to generate the file. Please check your input file (or) retry.');
+            //this.errorMessageWbpLogin = 'Failed to generate the file. Please check your input file (or) retry.';
           }
         });
       } catch (err) {
         this.generateWbpButtonValue = "Generate";
-        this.errorMessageWbpLogin = 'Failed to generate the file. Please check your input file (or) retry.';
+        this.commonService.openSnackBarFailure('Failed to generate the file. Please check your input file (or) retry.');
+        //this.errorMessageWbpLogin = 'Failed to generate the file. Please check your input file (or) retry.';
       }
     }
   }
 
   generateJobFile(): void {
     if (!this.fileJobLogin) {
-      alert("Please choose a file to login.");
+      //alert("Please choose a file to login.");
+      this.commonService.openSnackBarValidation("Please choose a file to login.");
     } else {
       this.reset();
       try {
@@ -158,12 +165,14 @@ export class CreateTemplateComponent implements OnInit {
           if (response.fileName) {
             this.fileNameJobGenerate = response.fileName;
           } else {
-            this.errorMessageJobLogin = 'Failed to generate the file. Please check your input file (or) retry.';
+            this.commonService.openSnackBarFailure('Failed to generate the file. Please check your input file (or) retry.');
+            //this.errorMessageJobLogin = 'Failed to generate the file. Please check your input file (or) retry.';
           }
         });
       } catch (err) {
         this.generateJobButtonValue = "Generate";
-        this.errorMessageJobLogin = 'Failed to generate the file. Please check your input file (or) retry.';
+        this.commonService.openSnackBarFailure('Failed to generate the file. Please check your input file (or) retry.');
+        //this.errorMessageJobLogin = 'Failed to generate the file. Please check your input file (or) retry.';
       }
     }
   }
@@ -185,7 +194,8 @@ export class CreateTemplateComponent implements OnInit {
       a.remove();
       this.refreshPage();
     } else {
-      this.errorMessageDownload = 'Failed to download the file. Please try again.';
+      //this.errorMessageDownload = 'Failed to download the file. Please try again.';
+      this.commonService.openSnackBarFailure('Failed to download the file. Please try again.');
     }
   }
 }
